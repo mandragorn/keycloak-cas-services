@@ -1,12 +1,13 @@
 package io.github.johnjcool.keycloak.broker.cas;
 
-import io.github.johnjcool.keycloak.broker.cas.jaxb.ServiceResponseJaxbContextResolver;
-import io.github.johnjcool.keycloak.broker.cas.jaxb.ServiceResponseJaxbProvider;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.keycloak.Config;
 import org.keycloak.broker.provider.AbstractIdentityProviderFactory;
 import org.keycloak.models.IdentityProviderModel;
 import org.keycloak.models.KeycloakSession;
+
+import io.github.johnjcool.keycloak.broker.cas.jaxb.ServiceResponseJaxbContextResolver;
+import io.github.johnjcool.keycloak.broker.cas.jaxb.ServiceResponseJaxbProvider;
 
 public class CasIdentityProviderFactory extends AbstractIdentityProviderFactory<CasIdentityProvider> {
 
@@ -27,6 +28,16 @@ public class CasIdentityProviderFactory extends AbstractIdentityProviderFactory<
 	@Override
 	public CasIdentityProvider create(final KeycloakSession session, final IdentityProviderModel model) {
 		return new CasIdentityProvider(session, new CasIdentityProviderConfig(model));
+	}
+
+	@Override
+	public IdentityProviderModel createConfig() {
+		return new IdentityProviderModel();
+	}
+
+	@Override
+	public CasIdentityProvider create(KeycloakSession session) {
+		return create(session, null);
 	}
 
 	@Override
